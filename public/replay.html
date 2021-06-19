@@ -1,0 +1,56 @@
+<!-- <!DOCTYPE html> -->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MEMORY&GUESS</title>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" type="text/css" href="/styles/match.css" media="all">
+        <link rel="stylesheet" type="text/css" href="./styles/game.css">
+        <link rel="icon" href="./images/favicon.ico">
+    </head>
+    <body>
+        <div id = "header" class = "header">
+            <div style="cursor: pointer" id = "logo-container-header">
+                <img id = "logo" src = "https://memoryguess.s3.ap-northeast-1.amazonaws.com/logo_MemoryGuess.jpeg" alt = "logo">
+                <div id = "logo-header">Back to homepage</div>
+            </div>
+            <div class = "title" id = "project-name">MEMORY & GUESS</div>
+            <div style="cursor: pointer" id = "user_profile">
+                <img id = "user_photo" src = "https://memoryguess.s3.ap-northeast-1.amazonaws.com/profile.jpeg" alt = "user_photo">
+                <div id = "user-name-header"></div>
+            </div>
+        </div>
+        <div class = "container" id = "container">
+            <div id = "left">
+                <div id = "user-title">User</div>
+                <div class = "user" id = "user_container">
+                    <img id = "user_photo_left" class = "user_photo" src = "https://memoryguess.s3.ap-northeast-1.amazonaws.com/profile.jpeg" alt = "user_photo">
+                    <div id = "name"></div>
+                </div>
+                <div class = "points" id = "player_points">目前得分: 0</div>
+                <div style="visibility:hidden" id = "chat_room">
+                    <ul id = "messages"></ul>
+                    <div id = "sendmsg">
+                        <input id="input" autocomplete="off" />
+                        <button style="cursor: pointer" id = "send">送出</button>
+                    </div>
+                </div>
+            </div>
+            <div id = "middle">
+
+            </div>
+            <div id = "right">
+                <div id = "opponent-title">Opponent</div>
+                <div class = "user" id = "opposite_user_container">
+                    <img id = "user_photo_right" class = "user_photo" src = "https://memoryguess.s3.ap-northeast-1.amazonaws.com/profile.jpeg" alt = "user_photo">
+                    <div id = "opposite_user_name">Waiting...</div>
+                </div>
+                <div class = "points" id = "oppo_player_points">對手得分: 0</div>
+                <div id = "mode">遊戲重播模式</div>
+                <div id = "roomID">重播場次: </div>
+            </div>
+        </div>
+        <script src = "./src/replay.js" type="module"></script>
+    </body>
+</html>

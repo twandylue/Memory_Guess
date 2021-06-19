@@ -1,0 +1,15 @@
+# node modules
+/node_modules
+
+# dotenv environment variables file
+.env
+
+# eslint
+.eslintrc.json
+
+# vscode
+.vscode
+
+# Mac
+.DS_Store
+

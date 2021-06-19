@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Kaushan+Script&family=Permanent+Marker&family=Ultra&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Potta+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Rock+Salt&display=swap');
+
+.memory-game {
+    width: 95%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-radius: 8px;
+    background-color: #90ccf4;
+    /* 顏色待改 */
+    font-family: 'Nanum Pen Script', cursive;
+}
+
+.double16 {
+    width: calc(25% - 10px);
+    height: calc(25% - 10px);
+    /* 有沒有彈性 隨時變動？ 還是需要先寫好情況 */
+    margin: 5px;
+    position: relative;
+    box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+    transform: scale(1);
+    transform-style: preserve-3d;
+    transition: transform .5s;
+    border-radius: 8px;
+}
+
+.double25 {
+    width: calc(20% - 10px);
+    height: calc(20% - 10px);
+    /* 有沒有彈性 隨時變動？ 還是需要先寫好情況 */
+    margin: 5px;
+    position: relative;
+    box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+    transform: scale(1);
+    transform-style: preserve-3d;
+    transition: transform .5s;
+    border-radius: 8px;
+}
+
+.double36 {
+    width: calc(16.65% - 10px);
+    height: calc(16.65% - 10px);
+    /* 有沒有彈性 隨時變動？ 還是需要先寫好情況 */
+    margin: 5px;
+    position: relative;
+    box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+    transform: scale(1);
+    transform-style: preserve-3d;
+    transition: transform .5s;
+    border-radius: 8px;
+}
+
+.double16 > .front-face {
+    font-size: 50px; 
+    line-height: 60px;
+    /* 字體大小設定 */
+}
+
+.double25 > .front-face {
+    font-size: 45px; 
+    line-height: 40px;
+    /* 字體大小設定 */
+}
+
+.double36 > .front-face {
+    font-size: 35px; 
+    line-height: 28px;
+    /* 字體大小設定 */
+}
+
+.double16 > .back-face {
+    font-size: 50px; 
+    line-height: 80px;
+    /* 字體大小設定 */
+}
+
+.double25 > .back-face {
+    font-size: 35px; 
+    line-height: 40px;
+    /* 字體大小設定 */
+}
+
+.double36 > .back-face {
+    /* font-size: 25px;  */
+    font-size: 35px; 
+    line-height: 25px;
+    /* 字體大小設定 */
+}
+
+.memory-card:active {
+    transform: scale(0.97);
+    transition: transform .2s;
+}
+
+.memory-card.flip {
+    transform: rotateY(180deg);
+}
+
+.front-face,
+.back-face {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    position: absolute;
+    border-radius: 5px;
+    background-color: #ececec;
+     /* 顏色待改 */
+    backface-visibility: hidden;
+    border-radius: 8px;
+}
+
+.front-face_start {
+    transform: rotateY(180deg);
+}
+
+.back-face_ready {
+    transform: rotateY(180deg);
+}
+
+.card-color {
+    border-radius: 8px;
+}
+
+.card-color-opponent {
+    border-radius: 8px;
+}
+
+.card-color > .front-face {
+    background-color: #f78888;
+}
+
+.card-color-opponent > .front-face {
+    background-color: #f3d250;
+}

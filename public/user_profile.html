@@ -1,0 +1,54 @@
+<!-- <!DOCTYPE html> -->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MEMORY&GUESS</title>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="./styles/userprofile.css">
+        <link rel="icon" href="./images/favicon.ico">
+    </head>
+    <body>
+        <div id = "header" class = "header">
+            <div style="cursor: pointer" id = "logo-container-header">
+                <img id = "logo" src = "https://memoryguess.s3.ap-northeast-1.amazonaws.com/logo_MemoryGuess.jpeg" alt = "logo">
+                <div id = "logo-header">Back to homepage</div>
+            </div>
+            <div class = "title" id = "project-name">MEMORY & GUESS</div>
+            <div style="cursor: pointer" id = "user_profile">
+                <img id = "user_photo" src = "https://memoryguess.s3.ap-northeast-1.amazonaws.com/profile.jpeg" alt = "user_photo">
+                <div id = "user-name-header"></div>
+            </div>
+        </div>
+        <div class = "container" id = "container">
+            <div id = "user-info" class = "info">
+                <div id = "user-photo-container">
+                    <img style="cursor: pointer" id = "user-photo" src = "https://memoryguess.s3.ap-northeast-1.amazonaws.com/profile.jpeg" alt = "user-photo">
+                    <div id = "photo-info">請選擇大頭貼</div>
+                </div>
+                <div id = "user-name-main" class = "statInfo"></div>
+                <div id = "user-email-main" class = "statInfo"></div>
+                <div id = "total-points" class = "statInfo"></div>
+                <div id = "correct-rate" class = "statInfo"></div>
+                <div id = 'game-history-container' class = "statInfo">
+                    <select id = "game-history" class = "statInfo">
+                        <option>請選擇重播場次</option>
+                    </select>
+                    <div style="cursor: pointer" id = "reply-select">
+                        <li id = "submit">
+                            確認
+                            <span></span><span></span><span></span><span></span>
+                        </li>
+                    </div>
+                </div>          
+            </div>
+            <div id = "leaderboard-info">
+                <div id = "leaderboard-info-title">排行榜</div>
+                <ul id = "leaderboard" class = "info">
+                </ul>
+            </div>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src = "./src/user_profile.js" type="module"></script>
+    </body>
+</html>

@@ -1,0 +1,186 @@
+<!-- <!DOCTYPE html> -->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MEMORY&GUESS</title>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <link rel="stylesheet" href="./styles/lobby.css">
+        <link rel="icon" href="./images/favicon.ico">
+    </head>
+    <body>
+        <div id = "header" class = "header">
+            <div style="cursor: pointer" id = "logo-container-header">
+                <img id = "logo" src = "https://memoryguess.s3.ap-northeast-1.amazonaws.com/logo_MemoryGuess.jpeg" alt = "logo">
+                <div id = "logo-header">Back to homepage</div>
+            </div>
+            <div class = "title" id = "project-name">MEMORY & GUESS</div>
+            <div style="cursor: pointer" id = "user_profile">
+                <img id = "user_photo" src = "https://memoryguess.s3.ap-northeast-1.amazonaws.com/profile.jpeg" alt = "user_photo">
+                <div id = "user_name"></div>
+            </div>
+        </div>
+        <div class = "container" id = "container">
+            <div id = "left">
+                <div class = "title" id = "rule-introduction"></div>
+                <div id = "rule-info">
+                    <div id = "online-members">在線人數: ? 人</div>
+                    <video width = "600" height="320" controls autoplay auto preload muted src = "https://memoryguess.s3.ap-northeast-1.amazonaws.com/%E8%9E%A2%E5%B9%95%E9%8C%84%E8%A3%BD+2021-06-15+00.17.45.mov">
+                    </video>
+                    <!-- <ul id = 'rule-intro'>
+                        <br>
+                        <li>
+                            >支援單人模式與多人對戰！
+                        </li>
+                        <li>
+                            >搶答！搶分！搶牌！
+                        </li>
+                        <li>
+                            >提供重播系統檢視自己的記憶力和搶牌策略！
+                        </li>
+                        <li>
+                            >在遊戲中兩張卡牌為一組配對，當卡牌配對成功(達到目標數字)時，可以得到10分; 舉例來說，如果遊戲規則顯示“乘法”，則兩張卡片上數字相乘後等於目標數字時，可以得到10分！
+                        </li>
+                        <li>
+                            得分最多者是贏家！
+                        </li>
+                    </ul> -->
+                    <div id = "chat_room_lobby">
+                        <ul id = "messages"></ul>
+                        <div id = "sendmsg">
+                            <input id="input" autocomplete="off" placeholder="請輸入聊天訊息..." />
+                            <button style="cursor: pointer" id = "send">送出</button>
+                        </div>
+                    </div>
+                </div>
+                <div id = "mode-select">
+                    <li style="cursor: pointer" id = "single">
+                        單人模式
+                        <span></span><span></span><span></span><span></span>
+                    </li>
+                </div>
+            </div>
+            <div id = "right">
+                <div id = "room-list">
+                    <div id = "room1" class = "room">
+                        <div class = "room-left">
+                            <div class = "upper">
+                                <div class = "room-name"></div>
+                                <div class = "room-state"></div>
+                            </div>
+                            <div class = "down">
+                                <div style="cursor: pointer" class = "join">
+                                    加入
+                                    <span></span><span></span><span></span><span></span>
+                                </div>
+                                <div style="cursor: pointer" class = "watch">
+                                    觀戰
+                                    <span></span><span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "room-right">
+                            <div class = "members-list-title">房間成員</div>
+                            <div class = "members-list"></div>
+                            <div class = "members-list"></div>
+                        </div>
+                    </div>
+                    <div id = "room2" class = "room">
+                        <div class = "room-left">
+                            <div class = "upper">
+                                <div class = "room-name"></div>
+                                <div class = "room-state"></div>
+                            </div>
+                            <div class = "down">
+                                <div style="cursor: pointer" class = "join">
+                                    加入
+                                    <span></span><span></span><span></span><span></span>
+                                </div>
+                                <div style="cursor: pointer" class = "watch">
+                                    觀戰
+                                    <span></span><span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "room-right">
+                            <div class = "members-list-title">房間成員</div>
+                            <div class = "members-list"></div>
+                            <div class = "members-list"></div>
+                        </div>
+                    </div>
+                    <div id = "room3" class = "room">
+                        <div class = "room-left">
+                            <div class = "upper">
+                                <div class = "room-name"></div>
+                                <div class = "room-state"></div>
+                            </div>
+                            <div class = "down">
+                                <div style="cursor: pointer" class = "join">
+                                    加入
+                                    <span></span><span></span><span></span><span></span>
+                                </div>
+                                <div style="cursor: pointer" class = "watch">
+                                    觀戰
+                                    <span></span><span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "room-right">
+                            <div class = "members-list-title">房間成員</div>
+                            <div class = "members-list"></div>
+                            <div class = "members-list"></div>
+                        </div>
+                    </div>
+                    <div id = "room4" class = "room">
+                        <div class = "room-left">
+                            <div class = "upper">
+                                <div class = "room-name"></div>
+                                <div class = "room-state"></div>
+                            </div>
+                            <div class = "down">
+                                <div style="cursor: pointer" class = "join">
+                                    加入
+                                    <span></span><span></span><span></span><span></span>
+                                </div>
+                                <div style="cursor: pointer" class = "watch">
+                                    觀戰
+                                    <span></span><span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "room-right">
+                            <div class = "members-list-title">房間成員</div>
+                            <div class = "members-list"></div>
+                            <div class = "members-list"></div>
+                        </div>
+                    </div>
+                    <div id = "room5" class = "room">
+                        <div class = "room-left">
+                            <div class = "upper">
+                                <div class = "room-name"></div>
+                                <div class = "room-state"></div>
+                            </div>
+                            <div class = "down">
+                                <div style="cursor: pointer" class = "join">
+                                    加入
+                                    <span></span><span></span><span></span><span></span>
+                                </div>
+                                <div style="cursor: pointer" class = "watch">
+                                    觀戰
+                                    <span></span><span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "room-right">
+                            <div class = "members-list-title">房間成員</div>
+                            <div class = "members-list"></div>
+                            <div class = "members-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src = "/socket.io/socket.io.js"></script>
+        <script src = "./src/lobby.js" type="module"></script>
+    </body>
+</html>
