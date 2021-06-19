@@ -4,7 +4,7 @@ const joinRoom = async (roomID, email) => {
     const conn = await pool.getConnection();
     try {
         await conn.query("START TRANSACTION");
-        let sql = "UPDATE lobby_table SET player = player + 1 WHERE room_id = ?";
+        let sql = "UPDATE lobby_table SET player = player + 1 WHERE room_id = ?;";
         let insert = roomID;
         await conn.query(sql, insert);
 
