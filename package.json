@@ -4,7 +4,7 @@
   "description": "my side project",
   "main": "app.js",
   "scripts": {
-    "test": "mocha"
+    "test": "NODE_ENV=test mocha --timeout 15000 --exit"
   },
   "author": "andy",
   "license": "ISC",
@@ -30,6 +30,7 @@
     "redis": "^3.1.2",
     "request": "^2.88.2",
     "serve-favicon": "^2.5.0",
+    "sinon": "^11.1.1",
     "socket.io": "^4.1.2",
     "socket.io-client": "^4.1.2",
     "socket.io-redis": "^6.1.1",

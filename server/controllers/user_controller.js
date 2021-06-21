@@ -40,7 +40,7 @@ const signUp = async (req, res) => {
                 provider: user.provider,
                 name: user.name,
                 email: user.email,
-                picture: user.picture
+                picture: user.photo_src
             }
         }
     });
@@ -75,7 +75,7 @@ const signIn = async (req, res) => {
                     provider: user.provider,
                     name: user.name,
                     email: user.email,
-                    picture: user.picture
+                    picture: user.photo_src
                 }
             }
         });
@@ -92,7 +92,7 @@ const getUserProfile = async (req, res) => {
             provider: req.user.provider,
             name: req.user.name,
             email: req.user.email,
-            picture: req.user.picture
+            picture: req.user.photo_src
         }
     });
 };

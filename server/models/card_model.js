@@ -121,15 +121,6 @@ function count (input) {
     return (ans);
 };
 
-const randomNumber = (range, count) => { // 不含0
-    const randomNumberArr = [];
-    for (let i = 0; i < count; i++) {
-        const randomNumber = Math.floor(Math.random() * range) + 1;
-        randomNumberArr.push(randomNumber);
-    }
-    return randomNumberArr;
-};
-
 const randomNumberForArrayIndex = (range, count) => { // 0
     const randomNumberArr = [];
     for (let i = 0; i < count; i++) {
@@ -137,17 +128,6 @@ const randomNumberForArrayIndex = (range, count) => { // 0
         randomNumberArr.push(randomNumber);
     }
     return randomNumberArr;
-};
-
-const randomUnique = (range, count) => { // 不含0
-    if (range < count) {
-        return null;
-    }
-    const nums = new Set();
-    while (nums.size < count) {
-        nums.add(Math.floor(Math.random() * range) + 1);
-    }
-    return [...nums];
 };
 
 const randomUniqueforArrayIndex = (range, count) => { // 包含0

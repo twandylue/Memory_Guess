@@ -55,4 +55,5 @@ if (require.main === module) {
     });
 }
 
-module.exports = server;
+module.exports = server; // for socket test
+module.exports = app; // for api test

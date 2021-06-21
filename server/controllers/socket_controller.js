@@ -90,9 +90,8 @@ const matchRoom = function (socket, io) {
         io.emit("room info", roomInfo); // update rooms info on lobby
     });
 
-    socket.on("in room", async () => { // 這邊可能出問題 有時候會來不及建立on
+    socket.on("in room", async () => { // check 有沒有在房間內
         try {
-            // check 有沒有在房間內
             const user = socket.info; // token中應該已帶有roomID資訊
             const { roomID } = user;
             socket.join(roomID);
@@ -155,7 +154,6 @@ const matchRoom = function (socket, io) {
         // gameID 拿該room裡面最新的 如果還沒產生roomID怎麼辦？
         // 為了畫面同步 記錄畫面狀態 combine with gameID 等待畫面 配對成功畫面 ready倒數畫面 start倒數畫面 統計畫面
         // 為了翻牌同步
-
     });
 
     socket.on("join room with robot", async () => {
@@ -509,7 +507,6 @@ const clickCardInGame = function (socket, io) {
 
 const robotClicker = async function (cardNumber, gameID, roomID, robotName, player, target, round, time, diffculty, io) { // 機器人
     let cardClickNumber = 0;
-    // const isCardAllMatch = false;
     while (true) {
         const switchStatus = await getCache(`switch_${gameID}`);
         if (switchStatus === null) { // 關閉robotClicker
@@ -540,67 +537,6 @@ const robotClicker = async function (cardNumber, gameID, roomID, robotName, play
             return parseInt(ele);
         });
 
-        // let cardID;
-        // let isCardIDAllowed;
-        // while (true) {
-        //     const allCardID = [];
-        //     for (let i = 0; i < cardNumber; i++) {
-        //         allCardID.push(i);
-        //     }
-
-        //     let playerHisCardIDArr = [];
-        //     let robotHisCardIDArr = [];
-        //     if (playerHisCardID !== null) {
-        //         playerHisCardIDArr = playerHisCardID;
-        //     }
-
-        //     if (robotHisCardID !== null) {
-        //         robotHisCardIDArr = robotHisCardID;
-        //     }
-
-        //     const unionHis = playerHisCardIDArr.concat(robotHisCardIDArr.filter((e) => {
-        //         return playerHisCardIDArr.indexOf(e) === -1;
-        //     })); // union
-
-        //     const union = matchNumberList.concat(unionHis.filter((e) => {
-        //         return matchNumberList.indexOf(e) === -1;
-        //     })); // union
-
-        //     const allowNumberArr = allCardID.filter((e) => {
-        //         return union.indexOf(e) === -1;
-        //     }).concat(union.filter((f) => {
-        //         return allCardID.indexOf(f) === -1;
-        //     })); // 可以選擇的數字(arr) 差集
-
-        //     const cardIDArr = randomNumberForArrayIndex(cardNumber, 1); // return array e.g. [3] 隨機選卡
-        //     isCardIDAllowed = !playerHisCardIDArr.includes(cardIDArr[0]) && !robotHisCardIDArr.includes(cardIDArr[0]) && !matchNumberList.includes(cardIDArr[0]);
-
-        //     // console.log(`cardID: ${cardIDArr[0]}`);
-        //     // console.log("matchNumberList: ");
-        //     // console.log(matchNumberList);
-        //     // console.log("allowNumberArr: ");
-        //     // console.log(allowNumberArr);
-        //     // console.log(`!playerHisCardIDArr.includes(cardIDArr[0]): ${playerHisCardIDArr.includes(cardIDArr[0])}`);
-        //     // console.log(`!robotHisCardIDArr.includes(cardIDArr[0]): ${!robotHisCardIDArr.includes(cardIDArr[0])}`);
-        //     // console.log(`matchNumberList.includes[cardIDArr[0]]: ${matchNumberList.includes(cardIDArr[0])}`);
-        //     // console.log(`isCardIDAllowed: ${isCardIDAllowed}`);
-
-        //     // console.log(`cardNumber: ${cardNumber}`);
-        //     // console.log(`matchNumberList.length: ${matchNumberList.length}`);
-        //     // console.log(`allowNumberArr.length: ${allowNumberArr.length}`);
-
-        //     if (allowNumberArr.length === 0) {
-        //         console.log("======================All card match======================");
-        //         // isCardAllMatch = true;
-        //         return;
-        //     }
-
-        //     if (isCardIDAllowed) {
-        //         cardID = cardIDArr[0];
-        //         // console.log("======================robot choose CardID: " + cardID);
-        //         break;
-        //     }
-        // }
         const allCardID = [];
         for (let i = 0; i < cardNumber; i++) {
             allCardID.push(i);
@@ -716,10 +652,6 @@ const robotClicker = async function (cardNumber, gameID, roomID, robotName, play
 const chat = function (socket, io) {
     socket.on("chat message", (msg) => {
         console.log(`FROM ${socket.info.email} | message ${msg}`);
-        // const room = [];
-        // for (const i of io.sockets.adapter.sids.get(socket.id)) { // room[1]: room
-        //     room.push(i);
-        // }
         const newMsg = socket.info.name + msg;
         io.to(socket.info.roomID).emit("chat message", newMsg);
     });
@@ -825,10 +757,6 @@ const randomNumberForArrayIndex = (range, count) => { // 0
         randomNumberArr.push(randomNumber);
     }
     return randomNumberArr;
-};
-
-const randomNumber = (range, count) => {
-    return Math.floor(Math.random() * range + 1);
 };
 
 async function countdownTimer (event, io, roomID, inputTime) {
