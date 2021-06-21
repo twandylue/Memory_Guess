@@ -16,11 +16,13 @@ function socket (io) {
         const { token } = socket.handshake.auth;
         if (token === null) {
             const err = new Error("尚未登入");
+            console.log(err);
             next(err);
         } else {
             jwt.verify(token, TOKEN_SECRET, (err, result) => {
                 if (err) {
                     const err = new Error("登入失敗");
+                    console.log(err);
                     next(err);
                 } else {
                     socket.info = result;
