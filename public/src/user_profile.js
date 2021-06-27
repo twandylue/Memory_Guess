@@ -80,7 +80,16 @@ submit.addEventListener("click", () => {
     const item = document.querySelector("#game-history");
     const gameID = item[item.selectedIndex].id; // get id of selected option
     const index = item[item.selectedIndex].dataset.index;
-    window.location.href = `/replay.html?gameID=${gameID}&&index=${index}`;
+    if (index) {
+        window.location.href = `/replay.html?gameID=${gameID}&&index=${index}`;
+    } else {
+        Swal.fire({
+            icon: "warning",
+            title: "請選擇重播場次",
+            text: "先選好再確認",
+            confirmButtonText: "好的"
+        });
+    }
 });
 
 const profile = document.querySelector("#user_profile");
