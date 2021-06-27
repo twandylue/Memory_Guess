@@ -35,7 +35,6 @@ img {
     padding-bottom: 5px;
     margin-bottom: 30px;
     border-bottom:#003049 solid 0.26rem;
-    /* background-color: #efe5dc; */
     background: radial-gradient(circle,#f5faf5 ,#efe5dc);
     border-radius: 2px;
     font-family: 'Gloria Hallelujah', cursive;
@@ -176,7 +175,6 @@ img {
     box-shadow: 3.5px 3.5px 2px rgba(0, 0, 0, 0.5);
 }
 
-/* 怎麼讓li全部顯示？ 不會超出外匡 */
 #leaderboard > li { 
     font-size: 1.2em;
     padding: 0.55em;

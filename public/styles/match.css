@@ -128,7 +128,6 @@ img {
     justify-content: center;
     height: 200px;
     font-size: 1.8em;
-    
 }
 
 .user_photo {
@@ -156,7 +155,6 @@ img {
     padding: 0.2em 0 0.2em 0;
     margin-top: 15px auto 0;
     font-size: 1.5rem;
-    
     text-align: center;
     border-top: #adb5bd solid 2px;
     border-bottom: #adb5bd solid 2px;
@@ -171,7 +169,6 @@ img {
     width: 100px;
     height: 1.5em;
     font-size: 1.2em;
-    /* margin-top: 20px; */
 }
 
 #chat_room {
@@ -180,7 +177,8 @@ img {
     justify-content: space-between;
     margin-top: 1rem;
     height: 60%;
-    width: 100%;;
+    width: 100%;
+    font-family: 'Arial';
 }
 
 #messages {
@@ -286,7 +284,6 @@ img {
     margin: 25px auto;
     width: 60%;
     border-bottom: #003049 solid 4.5px;
-    
 }
 
 #target {

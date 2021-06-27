@@ -1,8 +1,6 @@
 function setVideoChat (socket) {
     let peer = null;
     let cacheStream = null;
-    // const candidateTemplates = [];
-    // cacheStream.getVideoTracks.forEach((track) => { track.enbled = false; }); // 關閉視頻
 
     const offerOptions = {
         offerToReceiveAudio: 1,
@@ -20,13 +18,10 @@ function setVideoChat (socket) {
 
     // Media config
     socket.on("offer", async (desc) => { // B方
-        // console.log("收到遠方的offer");
         try {
             if (!peer) {
                 createPeerConnection(); // create RTCPeerConnection instance
             }
-
-            // console.log(" = 設定 remote description = ");
             await peer.setRemoteDescription(desc);
             if (!cacheStream) {
                 await addStreamProcess(); // getUserMedia & addTrack
@@ -38,9 +33,7 @@ function setVideoChat (socket) {
     });
 
     socket.on("answer", async (desc) => { // A方
-        // console.log("*** 遠端接受我們的offer並發送answer回來");
         try {
-            // console.log("setRemoteDescription ...");
             await peer.setRemoteDescription(desc);
         } catch (error) {
             console.log(`Error ${error.name}: ${error.message}`);
@@ -48,9 +41,7 @@ function setVideoChat (socket) {
     });
 
     socket.on("icecandidate", async (candidate) => { // A方 Ｂ方
-        // console.log(`*** 加入新取得的 ICE candidate: ${JSON.stringify(candidate)}`);
         try {
-            // candidateTemplates.push(candidate);
             await peer.addIceCandidate(candidate); // 注意先後順序 after setRemoteDescription
         } catch (error) {
             console.log(`Failed to add ICE: ${error.toString()}`);
@@ -58,7 +49,6 @@ function setVideoChat (socket) {
     });
 
     async function getUserStream () {
-        // console.log("getUserMedia ...");
         if ("mediaDevices" in navigator) {
             const stream = await navigator.mediaDevices.getUserMedia(mediaConstraints);
             cacheStream = stream;
@@ -87,7 +77,6 @@ function setVideoChat (socket) {
     }
 
     function createPeerConnection () {
-        // console.log("create peer connection ...");
         peer = new RTCPeerConnection({
             iceServers: [
                 {
@@ -122,9 +111,7 @@ function setVideoChat (socket) {
     }
 
     async function handleNegotiationNeeded () {
-        // console.log("*** handleNegotiationNeeded fired!");
         try {
-            // console.log("start createOffer ...");
             await peer.setLocalDescription(await peer.createOffer(offerOptions));
             socket.emit("offer", peer.localDescription);
         } catch (error) {
@@ -134,11 +121,8 @@ function setVideoChat (socket) {
 
     async function createAnswer () {
         try {
-            // console.log("createAnswer ...");
             const answer = await peer.createAnswer();
-            // console.log("setLocalDescription ...");
             await peer.setLocalDescription(answer);
-            // console.log("signaling answer ...");
             socket.emit("answer", answer);
         } catch (error) {
             const errMsg = "Create Answer error ===> " + error.toString();
@@ -165,7 +149,6 @@ function setVideoChat (socket) {
     }
 
     function closing () {
-        // console.log("Closing connection call");
         if (!peer) return; // 防呆機制
 
         // 1. 移除事件監聽
@@ -206,8 +189,6 @@ function setVideoChat (socket) {
         const videoMasks = document.querySelectorAll(".video-mask");
         videoMasks[0].remove(); // user
         videoMasks[1].remove(); // oppo
-        // const uservideo = document.querySelector("#localVideo");
-        // uservideo.remove();
 
         // for user
         const userPhoto = document.createElement("img");
@@ -340,7 +321,7 @@ function setVideoChat (socket) {
         });
     });
 
-    socket.on("oppo close video chat", async (picture) => {
+    socket.on("oppo close video chat", async () => {
         closing(); // close p2p
 
         Swal.fire({

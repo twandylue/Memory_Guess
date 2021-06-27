@@ -74,10 +74,6 @@ socket.on("show my info", (info) => {
     document.querySelector("#user_container #name").innerHTML = info.name;
 });
 
-socket.on("show roomID", (info) => {
-    document.querySelector("#roomID").innerHTML = `房號: ${info.roomID}`;
-});
-
 socket.on("ready in single mode", (info) => { // gameID 第一次出現 在info中
     const { rules, gameID } = info;
     frontGameID = gameID; // 第一次儲存gameID
@@ -245,7 +241,7 @@ socket.on("again", (info) => {
     showGameRules(info.rules);
 
     const startButton = document.querySelector("#start");
-    startButton.addEventListener("click", () => { // 此callbackfunction 可以簡化 重複使用 start button 待改
+    startButton.addEventListener("click", () => {
         const diffculty = document.getElementById("difficulty-selection").value;
         startButton.disabled = "disabled";
         Swal.fire({

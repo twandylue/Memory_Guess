@@ -137,32 +137,32 @@ describe("user", () => {
         assert.closeTo(new Date(loginTime[0][0].login_at).getTime(), Date.now(), 2000);
     });
 
-    // it("native sign in without email or password", async () => {
-    //     const user1 = users[0];
-    //     const userNoEmail = {
-    //         provider: user1.provider,
-    //         password: user1.password
-    //     };
+    it("native sign in without email or password", async () => {
+        const user1 = users[0];
+        const userNoEmail = {
+            provider: user1.provider,
+            password: user1.password
+        };
 
-    //     const res1 = await requester
-    //         .post("/api/1.0/user/signin")
-    //         .send(userNoEmail);
+        const res1 = await requester
+            .post("/api/1.0/user/signin")
+            .send(userNoEmail);
 
-    //     assert.equal(res1.status, 400);
-    //     assert.equal(res1.body.error, "Request Error: email and password are required.");
+        assert.equal(res1.status, 400);
+        assert.equal(res1.body.error, "Request Error: email and password are required.");
 
-    //     const userNoPassword = {
-    //         provider: user1.provider,
-    //         email: user1.email
-    //     };
+        const userNoPassword = {
+            provider: user1.provider,
+            email: user1.email
+        };
 
-    //     const res2 = await requester
-    //         .post("/api/1.0/user/signin")
-    //         .send(userNoPassword);
+        const res2 = await requester
+            .post("/api/1.0/user/signin")
+            .send(userNoPassword);
 
-    //     assert.equal(res2.status, 400);
-    //     assert.equal(res2.body.error, "Request Error: email and password are required.");
-    // });
+        assert.equal(res2.status, 400);
+        assert.equal(res2.body.error, "Request Error: email and password are required.");
+    });
 
     it("native sign in with wrong password", async () => {
         const user1 = users[0];

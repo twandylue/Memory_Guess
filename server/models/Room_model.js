@@ -96,29 +96,6 @@ const leaveRoom = async (email) => {
     }
 };
 
-const watcherJoinRoom = async (roomID) => {
-    const conn = await pool.getConnection();
-    try {
-        await conn.query("UPDATE lobby_table SET watcher = watcher + 1 WHERE room_id = ?", [roomID]); // wathcer 沒有上限
-    } catch (err) {
-        console.log(`error in watcherJoinRoom ${err}`);
-    } finally {
-        await conn.release();
-    }
-};
-
-const watcherLeaveRoom = async (roomID) => {
-    const conn = await pool.getConnection();
-    try {
-
-    } catch (err) {
-
-    }
-    const sql = "UPDATE lobby_table SET watcher = watcher - 1 WHERE room_id = ?";
-    const insert = roomID;
-    await pool.query(sql, insert);
-};
-
 const findGameID = async (email) => {
     try {
         const conn = await pool.getConnection();
@@ -255,8 +232,6 @@ module.exports = {
     joinRoomWithRobot,
     leaveRoomWithRobot,
     leaveRoom,
-    watcherJoinRoom,
-    watcherLeaveRoom,
     findGameID,
     findRoom,
     findRoomMember,

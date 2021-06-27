@@ -82,10 +82,9 @@ const recordEveryStep = async (info) => {
     }
 };
 
-const statRecord = async (gameID, roomID, rounds, status) => {
+const statRecord = async (gameID, roomMembers, rounds, status) => {
     const conn = await pool.getConnection();
 
-    const roomMembers = await Room.findRoomMember(roomID); // 前方已可知道roomber 此處不需要再await一次 待改
     const members = [];
     for (const i in roomMembers) {
         members.push(roomMembers[i].email);
@@ -234,7 +233,7 @@ const getReplay = async (gameID) => {
         if (status[0].length === 0) {
             return 0; // 有配對 但沒有對戰
         }
-        if (status[0][0].status === 1) { // 或許只提供真人對戰重播 待改
+        if (status[0][0].status === 1) {
             stepHis = await conn.query("SELECT game_setting_info.type, game_setting_info.number AS cards_number, game_history.game_id, game_history.room_id, game_history.round, game_history.player_email, game_history.card_ID, game_history.number, game_history.points, game_history.time, game_history.uts_order FROM game_history INNER JOIN game_setting_info ON game_setting_info.id = game_history.game_id WHERE game_id = ? ORDER BY uts_order ASC", [gameID]);
         } else {
             rules = await conn.query("SELECT room_id, type, number, rounds, targets_1, targets_2, targets_3 FROM game_setting_info WHERE id = ?;", [gameID]);

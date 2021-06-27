@@ -28,7 +28,6 @@ const socket = io({
 });
 
 socket.on("connect", () => {
-    // console.log(socket.id);
     setVideoChat(socket);
 });
 
@@ -322,7 +321,7 @@ socket.on("again", (info) => {
     showGameRules(info.rules);
 
     const startButton = document.querySelector("#start");
-    startButton.addEventListener("click", () => { // 此callbackfunction 可以簡化 重複使用 start button 待改
+    startButton.addEventListener("click", () => {
         startButton.disabled = "disabled";
         Swal.fire({
             icon: "warning",

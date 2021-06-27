@@ -10,6 +10,9 @@
 # vscode
 .vscode
 
+# README
+README.md
+
 # Mac
 .DS_Store
 

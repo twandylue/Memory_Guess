@@ -11,7 +11,7 @@ let frontRules; // 儲存遊戲規則
 
 const token = localStorage.getItem("access_token");
 async function main () {
-    const response = await checkLogin();
+    await checkLogin();
 }
 main();
 
@@ -68,7 +68,6 @@ Swal.fire({
     text: "要準備開始啦！",
     confirmButtonText: "確認"
 }).then(() => {
-    socket.emit("watcher in room", "watcher in the room"); // 較安全的寫法 等後端建立好on事件 and 到此處時 理應上token中已帶有roomID資訊
     socket.emit("get user info", "get my name");
     socket.emit("get user room", "get my roomID");
 });
@@ -244,7 +243,7 @@ socket.on("again", (info) => {
     showGameRules(info.rules);
 
     const startButton = document.querySelector("#start");
-    startButton.addEventListener("click", () => { // 此callbackfunction 可以簡化 重複使用 start button 待改
+    startButton.addEventListener("click", () => {
         startButton.disabled = "disabled";
         Swal.fire({
             icon: "warning",
@@ -292,16 +291,7 @@ start.addEventListener("click", () => {
         text: "等待對手準備...",
         confirmButtonText: "確認"
     }).then(() => {
-        // socket.emit("I am ready", "I am ready"); // 此處帶token至後端時 token內已有gameID 和 rules資訊
-        socket.emit("I am ready", { rules: frontRules, gameID: frontGameID });
-
-        // const gameID = localStorage.getItem("gameID");
-        // const rules = localStorage.getItem("rules");
-        // const gameRules = JSON.parse(rules);
-        // if (gameRules) {
-        //     gameRules.gameID = gameID;
-        //     socket.emit("I am ready", (gameRules));
-        // }
+        socket.emit("I am ready", { rules: frontRules, gameID: frontGameID }); // 此處帶token至後端時 token內已有gameID 和 rules資訊
     });
 });
 

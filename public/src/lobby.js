@@ -9,7 +9,6 @@ const socket = io({
 });
 
 socket.on("connect", () => {
-    // console.log("socketID: " + socket.id);
     socket.on("connect_error", (err) => {
         console.log(err.message);
         if (err.message) {
@@ -20,7 +19,7 @@ socket.on("connect", () => {
                 confirmButtonText: "確認"
             }).then(() => {
                 main();
-                socket.emit("update room info", "need to update room info"); // 後端沒建立on時 會導致沒有觸發此事件 待改 改成用api的形式
+                socket.emit("update room info", "need to update room info");
             });
         }
     });
@@ -38,17 +37,12 @@ socket.on("connect", () => {
         window.location.href = `/match.html?roomID=${info.roomID}`;
     });
 
-    socket.on("watcher join room success", (info) => {
-        localStorage.setItem("access_token", info.token); // 此token第一次帶有roomID資訊
-        window.location.href = `/watcher.html?roomID=${info.roomID}`;
-    });
-
     socket.on("join room with robot success", info => {
         localStorage.setItem("access_token", info.token); // 此token第一次帶有roomID資訊 單人模式
         window.location.href = `/match_robot.html?roomID=${info.roomID}`;
     });
 
-    socket.on("join failed", (info) => {
+    socket.on("join failed", () => {
         Swal.fire({
             icon: "error",
             title: "加入房間失敗",
@@ -65,22 +59,6 @@ socket.on("connect", () => {
         roomID = roomID.split("_")[1];
         const info = { roomID: roomID };
         socket.emit("join room", info);
-    }
-
-    const watcherButtons = document.querySelectorAll(".watch");
-    watcherButtons.forEach(watcherButton => watcherButton.addEventListener("click", watchRoom));
-    function watchRoom () {
-        const button = this;
-        const roomID = button.parentElement.parentElement.id;
-        const info = { roomID: roomID };
-        // socket.emit("join room", info);
-        // socket.emit("watcher join room", info);
-        Swal.fire({
-            icon: "error",
-            title: "施工中",
-            text: "此路不通!",
-            confirmButtonText: "好的"
-        });
     }
 
     const singleButton = document.querySelector("#single");
@@ -128,10 +106,12 @@ logo.addEventListener("click", () => {
 
 async function main () {
     const userInfo = await checkLogin();
+    if (userInfo) {
+        document.querySelector("#user_photo").src = userInfo.data.picture;
+        document.querySelector("#user_name").innerHTML = `Hi! ${userInfo.data.name}`;
+    }
     const lobbyInfo = await getLobbyInfo();
     updateLobby(lobbyInfo);
-    document.querySelector("#user_photo").src = userInfo.data.picture;
-    document.querySelector("#user_name").innerHTML = `Hi! ${userInfo.data.name}`;
 }
 main();
 
@@ -144,6 +124,9 @@ async function checkLogin () {
             Authorization: `Bearer ${accessToken}`
         })
     });
+    if (response.status === 200) {
+        return await response.json();
+    }
     if (response.status !== 200) {
         Swal.fire({
             icon: "error",
@@ -169,7 +152,7 @@ async function checkLogin () {
                         const password = Swal.getPopup().querySelector("#password").value;
                         if (!name || !email || !password) {
                             Swal.showValidationMessage("請輸入代號/信箱/密碼");
-                            return;
+                            return false;
                         }
                         return { name: name, email: email, password: password };
                     }
@@ -184,30 +167,39 @@ async function checkLogin () {
                             "Content-Type": "application/json"
                         })
                     });
-
-                    if (response.status !== 200) {
+                    if (response.status === 400) {
                         Swal.fire({
                             icon: "error",
-                            title: "Eamil被註冊過囉！",
-                            text: "請換個email註冊吧!",
+                            title: "Email已被註冊或格式不符",
+                            text: "請重新註冊",
                             confirmButtonText: "好的"
                         }).then(() => {
                             main();
                         });
-                        return;
+                        return false;
+                    } else if (response.status === 403) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "註冊失敗",
+                            text: "請重新註冊",
+                            confirmButtonText: "好的"
+                        }).then(() => {
+                            main();
+                        });
+                        return false;
+                    } else if (response.status === 200) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "註冊成功！",
+                            text: "可以開始玩囉!",
+                            confirmButtonText: "好的"
+                        }).then(async () => {
+                            const info = await response.json();
+                            localStorage.setItem("access_token", info.data.access_token);
+                            socket.emit("update room info", "need to update room info");
+                            window.location.href = "/";
+                        });
                     }
-
-                    Swal.fire({
-                        icon: "success",
-                        title: "註冊成功！",
-                        text: "可以開始玩囉!",
-                        confirmButtonText: "好的"
-                    }).then(async () => {
-                        const info = await response.json();
-                        localStorage.setItem("access_token", info.data.access_token);
-                        socket.emit("update room info", "need to update room info"); // 後端沒建立on時 會導致沒有觸發此事件 待改 改成用api的形式
-                        window.location.href = "/";
-                    });
                 }
             }
 
@@ -223,7 +215,7 @@ async function checkLogin () {
                         const password = Swal.getPopup().querySelector("#password").value;
                         if (!email || !password) {
                             Swal.showValidationMessage("請輸入信箱/密碼");
-                            return;
+                            return false;
                         }
                         return { email: email, password: password };
                     }
@@ -248,7 +240,7 @@ async function checkLogin () {
                         }).then(() => {
                             main();
                         });
-                        return;
+                        return false;
                     }
 
                     Swal.fire({
@@ -259,14 +251,14 @@ async function checkLogin () {
                     }).then(async () => {
                         const info = await response.json();
                         localStorage.setItem("access_token", info.data.access_token);
-                        socket.emit("update room info", "need to update room info"); // 後端沒建立on時 會導致沒有觸發此事件 待改 改成用api的形式
+                        socket.emit("update room info", "need to update room info");
                         window.location.href = "/";
                     });
                 }
             }
         });
     }
-    return await response.json();
+    // return await response.json();
 }
 
 async function getLobbyInfo () {

@@ -55,6 +55,4 @@ if (require.main === module) {
     });
 }
 
-console.log("test for sticky session");
-
 module.exports = server; // for test

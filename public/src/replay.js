@@ -47,8 +47,6 @@ async function main () {
     const cardsSettingRound2 = [];
     const cardsSettingRound3 = [];
 
-    console.log(stepList);
-
     for (const i in stepList) {
         if (stepList[i].round === 1) {
             stepRound1.push(stepList[i]);
@@ -137,7 +135,6 @@ async function main () {
             if (gameStatData[i].player_email === userEmail) {
                 hitRate = gameStatData[i].hit_rate;
                 totalPointsNumber = gameStatData[i].total_points;
-                // roundsPoints =gameStatData[i]
                 const points = [gameStatData[i].round1_points, gameStatData[i].round2_points, gameStatData[i].round3_points];
                 for (const i in points) {
                     if (points[i] !== null) {
@@ -187,25 +184,14 @@ async function replayinPage (stepList, userName, oppoName) {
         let deltaTime = 10;
         if (i < stepList.length - 1) {
             deltaTime = stepList[i + 1].uts_order - stepList[i].uts_order; // 每次翻牌的延遲時間
-            // console.log(deltaTime);
         }
-
-        // console.log(`round: ${stepList[i].round}`);
-        // console.log(`time: ${stepList[i].time}`);
-        // console.log(`-------------------------index: ${i}`);
 
         if (userName === stepList[i].name) {
             cards[stepList[i].card_ID].classList.add("flip", "card-color"); // card flipped by local 翻牌
             user.his.push(stepList[i].card_ID);
-            // console.log("========user");
-            // console.log("user.his");
-            // console.log(user.his);
         } else if (oppoName === stepList[i].name) {
             cards[stepList[i].card_ID].classList.add("flip", "card-color-opponent");
             oppo.his.push(stepList[i].card_ID);
-            // console.log("========oppo");
-            // console.log("oppo.his");
-            // console.log(oppo.his);
         }
         cardFrontFaces[stepList[i].card_ID].innerHTML = stepList[i].number;
 
@@ -213,7 +199,6 @@ async function replayinPage (stepList, userName, oppoName) {
 
         if (user.his.length > 1) { // 點擊兩次
             if (stepList[i].points !== 0) { // 卡片配對
-                // console.log("==================================user match!!!!!!!!!");
                 const player = document.querySelector("#player_points");
                 const userPoints = parseInt((player.innerHTML).split(" ")[1]);
                 const newPoints = userPoints + stepList[i].points;
@@ -230,7 +215,6 @@ async function replayinPage (stepList, userName, oppoName) {
 
         if (oppo.his.length > 1) { // 點擊兩次
             if (stepList[i].points !== 0) { // 卡片配對
-                // console.log("==================================oppo match!!!!!!!!!");
                 const oppo = document.querySelector("#oppo_player_points");
                 const oppoPoints = parseInt((oppo.innerHTML).split(" ")[1]);
                 const newPoints = oppoPoints + stepList[i].points;

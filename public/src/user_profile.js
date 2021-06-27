@@ -24,7 +24,7 @@ socket.on("connect_error", (err) => {
             confirmButtonText: "確認"
         }).then(() => {
             main();
-            socket.emit("update room info", "need to update room info"); // 後端沒建立on時 會導致沒有觸發此事件 待改 改成用api的形式
+            socket.emit("update room info", "need to update room info");
         });
     }
 });
@@ -60,7 +60,6 @@ async function main () {
     for (let i = 0; i < gameHis.length; i++) {
         const gameItem = document.createElement("option");
         gameItem.id = gameHis[i].game_id;
-        // 以下加入 勝負 and 對手
         const str = `第 ${i + 1} 場 | room: ${gameHis[i].room_id} | 類型: ${gameHis[i].type} | 卡片數量: ${gameHis[i].number} | 總回合數: ${gameHis[i].rounds} | 總分: ${gameHis[i].total_points} | 命中率: ${(gameHis[i].hit_rate * 100).toFixed(2)} %`;
         gameItem.innerHTML = str;
         gameItem.dataset.index = i + 1;

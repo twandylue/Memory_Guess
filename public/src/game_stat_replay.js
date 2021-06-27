@@ -96,7 +96,6 @@ function showGameStatInReplay (hitRate, totalPointsNumber, roundsPoints, winnerS
     wrap.append(again, goodbye);
     choose.append(wrap);
 
-    // middle.append(status, goal, countdown, record, replay, choose);
     middle.append(status, countdown, record, replay, choose);
 
     const container = document.querySelector("#container");

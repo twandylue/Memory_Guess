@@ -15,7 +15,7 @@ function showBreakTimeInfo (nextRound) {
     const countdown = document.createElement("div");
     countdown.id = "countdown-break";
     countdown.className = "game_status";
-    countdown.innerHTML = "中場休息倒數時間: ... s"; // 待改
+    countdown.innerHTML = "中場休息倒數時間: ... s";
 
     middle.append(status, goal, countdown);
 }

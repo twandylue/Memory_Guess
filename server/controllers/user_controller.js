@@ -48,8 +48,9 @@ const signUp = async (req, res) => {
 
 const signIn = async (req, res) => {
     const { email, password } = req.body;
-    if (!email || !password) {
-        return { error: "Request Error: email and password are required.", status: 400 };
+    if (!email || !password || validator.isEmpty(email) || validator.isEmpty(password)) {
+        res.status(400).send({ error: "Request Error: email and password are required." });
+        return;
     }
 
     try {

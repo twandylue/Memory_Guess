@@ -1,5 +1,7 @@
-function cardGame (socket, gameID, round, target) { // 第一回合有選中 第二回合會出現問題
-    // let hasEmitCheckMatch = false;
+function cardGame (socket, gameID, round, target) {
+    socket.removeAllListeners("opposite click card"); // 初始化
+    socket.removeAllListeners("card number match");
+    socket.removeAllListeners("card number not match");
     let hasEmitedTwice = false;
     let lockBoard = false;
     let firstCard, secondCard;

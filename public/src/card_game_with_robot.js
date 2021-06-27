@@ -1,10 +1,15 @@
 function cardGameInSingle (socket, gameID, round, target) {
+    socket.removeAllListeners("opposite click card"); // 初始化
+    socket.removeAllListeners("card number match");
+    socket.removeAllListeners("card number not match");
+
+    const cards = document.querySelectorAll(".memory-card");
+    cards.forEach(card => card.addEventListener("click", flipCard));
+
     let hasEmitedTwice = false;
     let lockBoard = false;
     let firstCard, secondCard;
     let opponentFirstCard, opponentSecondCard;
-    const cards = document.querySelectorAll(".memory-card");
-    cards.forEach(card => card.addEventListener("click", flipCard));
 
     socket.on("opposite click card", (oppoInfo) => {
         cards[oppoInfo.cardID].classList.add("flip", "card-color-opponent"); // card flipped by oppo
