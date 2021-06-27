@@ -1,7 +1,7 @@
 # Memory_Guess
 
 A puzzle online card game helps users improve their mental arithmetic and memory.
-* Only available for Chrome.  
+* Only available for Chrome  
 Website URL: https://andyforfun.site
 
 ![Preview](https://memoryguessforreadme.s3.ap-northeast-1.amazonaws.com/preview.png)
