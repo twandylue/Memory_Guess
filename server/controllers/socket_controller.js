@@ -714,6 +714,9 @@ const disconnection = async (socket, io) => {
             }
         }
         const roomInfo = await Room.getRoomLobbyInfo();
+        const onlineNumbers = socket.adapter.sids.size;
+        client.set("online_number", onlineNumbers);
+        io.emit("update online number", onlineNumbers);
         io.emit("room info", roomInfo); // 更新大廳資訊
     } catch (err) {
         console.log(`disconnect err: ${err}`);
