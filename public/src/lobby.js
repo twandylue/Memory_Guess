@@ -10,7 +10,6 @@ const socket = io({
 
 socket.on("connect", () => {
     socket.on("connect_error", (err) => {
-        console.log(err.message);
         if (err.message) {
             Swal.fire({
                 icon: "warning",
@@ -50,19 +49,25 @@ socket.on("connect", () => {
             confirmButtonText: "好的"
         });
     });
+});
 
-    const joinButtons = document.querySelectorAll(".join");
-    joinButtons.forEach(joinButton => joinButton.addEventListener("click", joinRoom));
-    function joinRoom () {
+const joinButtons = document.querySelectorAll(".join");
+joinButtons.forEach(joinButton => joinButton.addEventListener("click", joinRoom));
+async function joinRoom () {
+    const result = await checkLogin();
+    if (result) {
         const button = this;
         let roomID = button.parentElement.parentElement.parentElement.id;
         roomID = roomID.split("_")[1];
         const info = { roomID: roomID };
         socket.emit("join room", info);
     }
+}
 
-    const singleButton = document.querySelector("#single");
-    singleButton.addEventListener("click", () => {
+const singleButton = document.querySelector("#single");
+singleButton.addEventListener("click", async () => {
+    const result = await checkLogin();
+    if (result) {
         Swal.fire({
             icon: "question",
             title: "單人模式",
@@ -75,28 +80,31 @@ socket.on("connect", () => {
                 socket.emit("join room with robot", "want to play with robot");
             }
         });
-    });
+    }
 });
 
 const profile = document.querySelector("#user_profile");
-profile.addEventListener("click", () => {
-    Swal.fire({
-        icon: "question",
-        title: "請選擇功能",
-        text: "想做啥?",
-        showDenyButton: true,
-        showCancelButton: true,
-        confirmButtonText: "我的檔案",
-        denyButtonText: "登出",
-        cancelButtonText: "取消"
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = "/user_profile.html";
-        } else if (result.isDenied) {
-            localStorage.removeItem("access_token");
-            window.location.href = "/";
-        }
-    });
+profile.addEventListener("click", async () => {
+    const result = await checkLogin();
+    if (result) {
+        Swal.fire({
+            icon: "question",
+            title: "請選擇功能",
+            text: "想做啥?",
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: "我的檔案",
+            denyButtonText: "登出",
+            cancelButtonText: "取消"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/user_profile.html";
+            } else if (result.isDenied) {
+                localStorage.removeItem("access_token");
+                window.location.href = "/";
+            }
+        });
+    }
 });
 
 const logo = document.querySelector("#logo-container-header");
@@ -128,6 +136,8 @@ async function checkLogin () {
         return await response.json();
     }
     if (response.status !== 200) {
+        document.querySelector("#user_photo").src = "https://memoryguess.s3.ap-northeast-1.amazonaws.com/enter.png";
+        document.querySelector("#user_name").innerHTML = "SIGN IN";
         Swal.fire({
             icon: "error",
             title: "請先登入",
@@ -170,7 +180,7 @@ async function checkLogin () {
                     if (response.status === 400) {
                         Swal.fire({
                             icon: "error",
-                            title: "Email已被註冊或格式不符",
+                            title: "註冊資料格式不符",
                             text: "請重新註冊",
                             confirmButtonText: "好的"
                         }).then(() => {
@@ -178,9 +188,10 @@ async function checkLogin () {
                         });
                         return false;
                     } else if (response.status === 403) {
+                        const msg = await response.json();
                         Swal.fire({
                             icon: "error",
-                            title: "註冊失敗",
+                            title: msg.error,
                             text: "請重新註冊",
                             confirmButtonText: "好的"
                         }).then(() => {
@@ -258,7 +269,6 @@ async function checkLogin () {
             }
         });
     }
-    // return await response.json();
 }
 
 async function getLobbyInfo () {
@@ -278,10 +288,13 @@ const inputEnter = document.querySelector("#sendmsg #input");
 const sendMsg = document.querySelector("#send");
 const chatroom = document.querySelector("#messages");
 
-sendMsg.addEventListener("click", () => {
-    if (inputEnter.value) {
-        socket.emit("chat lobby message", ": " + inputEnter.value);
-        inputEnter.value = "";
+sendMsg.addEventListener("click", async () => {
+    const result = await checkLogin();
+    if (result) {
+        if (inputEnter.value) {
+            socket.emit("chat lobby message", ": " + inputEnter.value);
+            inputEnter.value = "";
+        }
     }
 });
 

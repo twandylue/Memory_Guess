@@ -108,10 +108,10 @@ Features in game reply system, user profile page and homepage
     * Chat with other players through text messages in homepage
 
 ## Demo Accounts
-* Account1: demo1@eamil.com
+* Account1: demo1@email.com
 * Password1: demo1
 ----
-* Account2: demo2@gmail.com
+* Account2: demo2@email.com
 * Password2: demo2
 
 ## Contact
