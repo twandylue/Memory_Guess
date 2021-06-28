@@ -55,10 +55,21 @@ Website URL: https://andyforfun.site
 ## Structure (Multiple-server)
 ![Structur](https://user-images.githubusercontent.com/70478084/123537000-f360bb80-d75f-11eb-947e-1221790f18be.jpeg)
 
+### Load balancing sockets on horizontally scaling WebSocket servers
+* Set up load balancer to distribute WebSocket servers to clients.
+* Use sticky session to make sure clients connect to constant servers everytime through socket.
+* Adopt horizontal auto scaling group to increase new severs when older servers achieve capacity limits.
+* Connect clients in different WebSocket servers by socket.io-redis and AWS ElastiCache (Redis), so they can interact with others through socket.  
+Redis adaptor in socket.io-redis library can help bind servers in the same cache, so WebSocket servers are able to emit identical events and data synchronously through socket to thier clients. And it can make clients in different servers be able to communicate and interact with others in real time.   
+
+# Before implementing Redis adaptor
+![before_c](https://user-images.githubusercontent.com/70478084/123686680-a0335980-d882-11eb-89ec-1903b73abc71.png)
+
+# After implementing Redis adaptor
+![after_c](https://user-images.githubusercontent.com/70478084/123686923-e5f02200-d882-11eb-87c7-3d2ba589c010.png)
 
 ## Structure (Single-server)
 ![Structure](https://user-images.githubusercontent.com/70478084/123537049-30c54900-d760-11eb-9636-6d1c323f2f4a.jpeg)
-
 
 ## Database Schema
 ![Database_Schema](https://user-images.githubusercontent.com/70478084/123537080-4cc8ea80-d760-11eb-8b46-0813e8ca6de6.png)
