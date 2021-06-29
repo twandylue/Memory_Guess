@@ -33,7 +33,6 @@ Website URL: https://andyforfun.site
 * Elastic Compute Cloud (EC2)
 * Relational Database Service (RDS)
 * Simple Storage Service (S3)
-* CloudFront
 * ElastiCache
 * Auto Scaling
 * Load Balancer
