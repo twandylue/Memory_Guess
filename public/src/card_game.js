@@ -19,7 +19,7 @@ function cardGame (socket, gameID, round, target) {
 
     function flipCard () {
         if (!lockBoard && this !== firstCard) {
-            if (this === opponentFirstCard || this === opponentSecondCard) { // can't flip cards which are already flipped by oppo
+            if (this === opponentFirstCard || this === opponentSecondCard) { // can't flip cards which are already flipped by opponent
                 return;
             }
 
@@ -59,7 +59,7 @@ function cardGame (socket, gameID, round, target) {
             secondCard.removeEventListener("click", flipCard);
             resetBoard();
         } else { // filped by oppo
-            const oppoFirstCard = cards[cardMatchInfo.cardIDs[0]]; // 指定element
+            const oppoFirstCard = cards[cardMatchInfo.cardIDs[0]]; // assign card
             const oppoSecondCard = cards[cardMatchInfo.cardIDs[1]];
             oppoFirstCard.removeEventListener("click", flipCard);
             oppoSecondCard.removeEventListener("click", flipCard);
@@ -68,7 +68,7 @@ function cardGame (socket, gameID, round, target) {
 
     socket.on("card number not match", (cardMatchInfo) => {
         if (cardMatchInfo.selecterID === socket.id) {
-            firstCard = cards[cardMatchInfo.cardIDs[0]]; // 指定element
+            firstCard = cards[cardMatchInfo.cardIDs[0]]; // assign card
             secondCard = cards[cardMatchInfo.cardIDs[1]];
             lockBoard = true;
             setTimeout(() => {
@@ -78,11 +78,11 @@ function cardGame (socket, gameID, round, target) {
                 resetBoard();
             }, 400);
         } else {
-            const oppoFirstCard = cards[cardMatchInfo.cardIDs[0]]; // 指定element
+            const oppoFirstCard = cards[cardMatchInfo.cardIDs[0]]; // assign card
             const oppoSecondCard = cards[cardMatchInfo.cardIDs[1]];
             setTimeout(() => {
-                oppoFirstCard.classList.remove("flip", "card-color-opponent"); //
-                oppoSecondCard.classList.remove("flip", "card-color-opponent"); //
+                oppoFirstCard.classList.remove("flip", "card-color-opponent");
+                oppoSecondCard.classList.remove("flip", "card-color-opponent");
                 [oppoFirstCard.children[0].innerHTML, oppoSecondCard.children[0].innerHTML] = ["", ""];
                 [opponentFirstCard, opponentSecondCard] = [null, null];
             }, 400);

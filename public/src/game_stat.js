@@ -1,4 +1,3 @@
-// for record page
 function showGameStat (hitRate, totalPointsNumber, roundsPoints, winnerStatus) {
     document.querySelector("#middle").className = ""; // 初始化
     const deleteItem = document.querySelector("#middle");

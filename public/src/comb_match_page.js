@@ -9,7 +9,7 @@ function combineMatchPageForAgain () {
     oppoPoints.innerHTML = "對手得分: 0";
 
     const middle = document.querySelector("#middle");
-    while (middle.firstChild) { // 移除middle下 每個項目
+    while (middle.firstChild) {
         middle.removeChild(middle.lastChild);
     };
     const ruleSetting = document.createElement("div");

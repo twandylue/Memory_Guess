@@ -3,7 +3,7 @@ import { showGameStatInReplay } from "./game_stat_replay.js";
 
 async function main () {
     let userName, userEmail, oppoName, oppoEmail, oppoPhoto;
-    const userInfo = await checkLogin(); // 前端把關
+    const userInfo = await checkLogin();
     document.querySelector("#user_photo").src = userInfo.data.picture;
     document.querySelector("#user_photo_left").src = userInfo.data.picture;
     document.querySelector("#name").innerHTML = userInfo.data.name;
@@ -97,19 +97,19 @@ async function main () {
         }
     }
 
-    document.querySelector("#opposite_user_name").innerHTML = oppoName; // 填寫user name
-    document.querySelector("#user_photo_right").src = oppoPhoto; // 填上對手照片
+    document.querySelector("#opposite_user_name").innerHTML = oppoName; // update opponent name
+    document.querySelector("#user_photo_right").src = oppoPhoto; // update opponent photo
 
     const targets = [rules.targets_1, rules.targets_2, rules.targets_3];
-    addGameInfo(rules.type, rules.number, rules.rounds, targets);// 填寫規則提醒
+    addGameInfo(rules.type, rules.number, rules.rounds, targets);// update game rules
 
     let nowRound;
-    for (let i = 0; i < roundStepList.length; i++) { // cardSetting 也要放入
+    for (let i = 0; i < roundStepList.length; i++) {
         let readyTime = 5;
         const roundTime = 10;
         nowRound = i + 1;
-        addGameStatusReplayInit(nowRound, targets[i], readyTime); // 上方資訊
-        showCardsinReplay(rules.number, "in ready", cardsSettingList[i]); // 掀牌
+        addGameStatusReplayInit(nowRound, targets[i], readyTime);
+        showCardsinReplay(rules.number, "in ready", cardsSettingList[i]); // show cards with nember
         while (readyTime >= 0) { // countdown in game
             document.querySelector("#countdown").innerHTML = `準備倒數時間: ${readyTime}`;
             await delay(1000);
@@ -125,7 +125,7 @@ async function main () {
             confirmButtonText: "確認"
         });
     }
-    // 遊戲結束 顯示統計結果
+    // game over amd show game results
     let hitRate, totalPointsNumber, winnerStatus;
     const roundsPoints = [];
     if (gameStatData === 0) {
@@ -173,7 +173,7 @@ async function main () {
 main();
 
 async function replayinPage (stepList, userName, oppoName) {
-    countdownTimeinReplay(stepList[0].time); // 更新倒數計時數字 不同步 獨立
+    countdownTimeinReplay(stepList[0].time); // update countdown number. Asynchronous
 
     const user = { his: [] };
     const oppo = { his: [] };
@@ -183,11 +183,11 @@ async function replayinPage (stepList, userName, oppoName) {
     for (let i = 0; i < stepList.length; i++) {
         let deltaTime = 10;
         if (i < stepList.length - 1) {
-            deltaTime = stepList[i + 1].uts_order - stepList[i].uts_order; // 每次翻牌的延遲時間
+            deltaTime = stepList[i + 1].uts_order - stepList[i].uts_order; // delayed time after cards flipped
         }
 
         if (userName === stepList[i].name) {
-            cards[stepList[i].card_ID].classList.add("flip", "card-color"); // card flipped by local 翻牌
+            cards[stepList[i].card_ID].classList.add("flip", "card-color"); // card flipped by local
             user.his.push(stepList[i].card_ID);
         } else if (oppoName === stepList[i].name) {
             cards[stepList[i].card_ID].classList.add("flip", "card-color-opponent");
@@ -197,8 +197,8 @@ async function replayinPage (stepList, userName, oppoName) {
 
         await delay(deltaTime);
 
-        if (user.his.length > 1) { // 點擊兩次
-            if (stepList[i].points !== 0) { // 卡片配對
+        if (user.his.length > 1) { // cards flipped twice
+            if (stepList[i].points !== 0) { // cards match
                 const player = document.querySelector("#player_points");
                 const userPoints = parseInt((player.innerHTML).split(" ")[1]);
                 const newPoints = userPoints + stepList[i].points;
@@ -213,15 +213,15 @@ async function replayinPage (stepList, userName, oppoName) {
             }
         }
 
-        if (oppo.his.length > 1) { // 點擊兩次
-            if (stepList[i].points !== 0) { // 卡片配對
+        if (oppo.his.length > 1) { // cards flipped twice
+            if (stepList[i].points !== 0) { // cards match
                 const oppo = document.querySelector("#oppo_player_points");
                 const oppoPoints = parseInt((oppo.innerHTML).split(" ")[1]);
                 const newPoints = oppoPoints + stepList[i].points;
                 oppo.innerHTML = `目前得分: ${newPoints}`;
             } else {
                 for (const j in oppo.his) {
-                    cards[oppo.his[j]].classList.remove("flip", "card-color-opponent"); // 卡片沒配對 翻回問號
+                    cards[oppo.his[j]].classList.remove("flip", "card-color-opponent"); // cards doesn't match and flipped to question mark.
                 }
             }
             while (oppo.his.length) {
@@ -229,7 +229,7 @@ async function replayinPage (stepList, userName, oppoName) {
             }
         }
     }
-    // 初始化
+    // init
     while (user.his.length) {
         user.his.pop();
     }
@@ -266,7 +266,7 @@ async function checkLogin () {
     return await response.json();
 }
 
-async function getReplayData (gameID) { // 從url中拿資料
+async function getReplayData (gameID) {
     const accessToken = localStorage.getItem("access_token");
     const data = JSON.stringify({ data: gameID });
     const response = await fetch("/api/1.0/replayreocrd", {
@@ -313,7 +313,7 @@ async function countdownTimeinReplay (time) {
 
 function addGameStatusReplayInit (round, target, time) {
     const middle = document.querySelector("#middle");
-    while (middle.firstChild) { // 移除middle下 每個項目
+    while (middle.firstChild) {
         middle.removeChild(middle.lastChild);
     };
     const status = document.createElement("div");

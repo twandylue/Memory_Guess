@@ -1,4 +1,4 @@
-// refresh page for cardgame and set cards
+// refresh page for card game and set cards
 function addGameStatusAndCards (round, number, target, state, cardsSetting) {
     document.querySelector("#middle").className = ""; // 初始化
     const deleteItem = document.querySelector("#middle");

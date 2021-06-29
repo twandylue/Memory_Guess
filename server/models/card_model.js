@@ -57,7 +57,7 @@ const getFactors = (number) => {
     return factors;
 };
 
-const getMultiPairs = (target) => { // target 必須為>1的正整數
+const getMultiPairs = (target) => { // target > 1 and is a positive interger
     const factors = getFactors(target);
     const obj = count(factors);
     const obj2 = {};
@@ -68,7 +68,7 @@ const getMultiPairs = (target) => { // target 必須為>1的正整數
         for (let j = 0; j <= obj[i]; j++) {
             numbers.push(Math.pow(base, j));
         }
-        obj2[base] = numbers; // 測試使用
+        obj2[base] = numbers;
         arr.push(numbers);
     }
 
@@ -121,7 +121,7 @@ function count (input) {
     return (ans);
 };
 
-const randomNumberForArrayIndex = (range, count) => { // 0
+const randomNumberForArrayIndex = (range, count) => { // inclued 0
     const randomNumberArr = [];
     for (let i = 0; i < count; i++) {
         const randomNumber = Math.floor(Math.random() * range);
@@ -130,7 +130,7 @@ const randomNumberForArrayIndex = (range, count) => { // 0
     return randomNumberArr;
 };
 
-const randomUniqueforArrayIndex = (range, count) => { // 包含0
+const randomUniqueforArrayIndex = (range, count) => { // inclued 0
     if (range < count) {
         return null;
     }

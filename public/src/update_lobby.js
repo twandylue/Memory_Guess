@@ -15,7 +15,7 @@ function updateLobby (roomInfo) {
         roomStates[i].innerHTML = str;
     }
 
-    const joinButtons = document.querySelectorAll(".join"); // 房間人數超過上限時，disable button
+    const joinButtons = document.querySelectorAll(".join"); // disable button when number of players exceed allowed number.
     for (let i = 0; i < joinButtons.length; i++) {
         if (roomInfo.basicInfo[i].player >= roomInfo.basicInfo[i].player_limit) {
             joinButtons[i].disabled = "disabled";
@@ -28,7 +28,7 @@ function updateLobby (roomInfo) {
     }
 
     for (const i in roomInfo.members) {
-        if (isNaN(roomInfo.members[i].room_id)) { // 房號並非數字
+        if (isNaN(roomInfo.members[i].room_id)) { // datatype of roomID is string.
             break;
         }
         const room = document.querySelectorAll(`#room_${roomInfo.members[i].room_id}` + " .room-right" + " .members-list");

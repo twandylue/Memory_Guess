@@ -111,7 +111,7 @@ inputEnter.addEventListener("keyup", (event) => {
     }
 });
 
-socket.on("wait for opponent", () => { // 目前應該為等待畫面 不會顯示規則
+socket.on("wait for opponent", () => {
     Swal.fire({
         icon: "warning",
         title: "尚未配對成功",
@@ -123,10 +123,10 @@ socket.on("wait for opponent", () => { // 目前應該為等待畫面 不會顯�
     startButton.innerHTML = "等待對手中";
 });
 
-socket.on("both of you in ready", (info) => { // gameID 第一次出現 在info中
+socket.on("both of you in ready", (info) => { // gameID first time appears in info
     const { rules, gameID } = info;
-    frontGameID = gameID; //    第一次儲存gameID
-    frontRules = Object.assign({}, rules); // 第一次儲存frontRules(game rules)
+    frontGameID = gameID;
+    frontRules = Object.assign({}, rules); // game rules first time appears
     showGameRules(frontRules); // show rules
 
     const startButton = document.querySelector("#start");
@@ -200,7 +200,7 @@ socket.on("countdown in game", (time) => {
     document.querySelector("#countdown").innerHTML = `遊戲倒數時間: ${time} s`;
 });
 
-socket.on("start game", (info) => { // 翻牌(問號面)
+socket.on("start game", (info) => { // cards flipped to question mark
     if (info.msg === "start") {
         const cardFrontFaces = document.querySelectorAll(".front-face");
         const cardBackFaces = document.querySelectorAll(".back-face");

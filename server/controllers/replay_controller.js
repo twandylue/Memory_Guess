@@ -11,7 +11,7 @@ const getReplayRecord = async (req, res) => {
             return ele.name;
         });
         if (!names.includes(req.user.name)) {
-            res.status(400).send({ error: "Permission denied" }); // 沒有權限
+            res.status(400).send({ error: "Permission denied" });
             return;
         }
         res.status(200).send({ data: { stepList: replayObj.stepList, members: replayObj.members, rules: replayObj.rules, cardsSetting: replayObj.cardsSetting, gameStatData: replayObj.gameStatData } });

@@ -64,7 +64,7 @@ Swal.fire({
     text: "要開始了唷!",
     confirmButtonText: "確認"
 }).then(() => {
-    socket.emit("in room with robot", "in the room"); // 較安全的寫法 等後端建立好on事件 and 到此處時 理應上token中已帶有roomID資訊
+    socket.emit("in room with robot", "in the room");
     socket.emit("get user info", "get my name");
     socket.emit("get user room", "get my roomID");
 });
@@ -74,10 +74,10 @@ socket.on("show my info", (info) => {
     document.querySelector("#user_container #name").innerHTML = info.name;
 });
 
-socket.on("ready in single mode", (info) => { // gameID 第一次出現 在info中
+socket.on("ready in single mode", (info) => { // gameID first time appears in info
     const { rules, gameID } = info;
-    frontGameID = gameID; // 第一次儲存gameID
-    frontRules = Object.assign({}, rules); // 第一次儲存frontRules(game rules)
+    frontGameID = gameID; // gameID appears
+    frontRules = Object.assign({}, rules); // game rules first time appears
     showGameRules(frontRules); // show rules
 
     const startButton = document.querySelector("#start");
@@ -144,7 +144,7 @@ socket.on("countdown in game", (time) => {
     document.querySelector("#countdown").innerHTML = `遊戲倒數時間: ${time} s`;
 });
 
-socket.on("start game", (info) => { // 翻牌(問號面)
+socket.on("start game", (info) => { // cards flipped to question mark
     if (info.msg === "start") {
         const cardFrontFaces = document.querySelectorAll(".front-face");
         const cardBackFaces = document.querySelectorAll(".back-face");
@@ -234,8 +234,8 @@ socket.on("game over", (gameStatInfo) => {
 });
 
 socket.on("again", (info) => {
-    frontGameID = info.gameID; // 更新gameID
-    frontRules = Object.assign({}, info.rules); // 儲存新的frontRules
+    frontGameID = info.gameID; // update gameID
+    frontRules = Object.assign({}, info.rules); // store new game rules
     document.querySelector("#middle").classList.remove("middle-Stat");
     combineMatchPageForAgain();
     showGameRules(info.rules);
@@ -280,7 +280,7 @@ socket.on("again", (info) => {
     });
 });
 
-const start = document.querySelector("#start"); // 規則展示頁面確認按鈕
+const start = document.querySelector("#start");
 start.addEventListener("click", () => {
     const diffculty = document.getElementById("difficulty-selection").value;
     start.disabled = "disabled";

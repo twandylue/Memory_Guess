@@ -32,12 +32,12 @@ socket.on("connect", () => {
     });
 
     socket.on("join success", (info) => {
-        localStorage.setItem("access_token", info.token); // 此token第一次帶有roomID資訊
+        localStorage.setItem("access_token", info.token);
         window.location.href = `/match.html?roomID=${info.roomID}`;
     });
 
     socket.on("join room with robot success", info => {
-        localStorage.setItem("access_token", info.token); // 此token第一次帶有roomID資訊 單人模式
+        localStorage.setItem("access_token", info.token);
         window.location.href = `/match_robot.html?roomID=${info.roomID}`;
     });
 

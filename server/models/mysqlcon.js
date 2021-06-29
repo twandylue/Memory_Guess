@@ -5,13 +5,7 @@ const multipleStatements = (process.env.NODE_ENV === "test");
 const { DB_HOST, DB_USERNAME, DB_PASSWORD, DB_DATABASE, DB_DATABASE_TEST } = process.env;
 
 const mysqlConfig = {
-    production: { // for EC2 machine
-        host: DB_HOST,
-        user: DB_USERNAME,
-        password: DB_PASSWORD,
-        database: DB_DATABASE
-    },
-    development: { // for localhost development
+    development: {
         host: DB_HOST,
         user: DB_USERNAME,
         password: DB_PASSWORD,
@@ -27,7 +21,7 @@ const mysqlConfig = {
 
 const mysqlEnv = mysqlConfig[env];
 mysqlEnv.waitForConnections = true; // 無可用連線時是否等待pool連線釋放(預設為true)
-mysqlEnv.connectionLimit = 60; // 連線池可建立的總連線數上限(預設最多為60個連線數)
+mysqlEnv.connectionLimit = 60; // 連線池可建立的總連線數上限(預設最多為66個連線數)
 
 const pool = mysql.createPool(mysqlEnv, { multipleStatements });
 

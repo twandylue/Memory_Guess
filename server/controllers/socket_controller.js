@@ -92,7 +92,7 @@ const matchRoom = function (socket, io) {
         io.emit("room info", roomInfo); // update rooms info on lobby
     });
 
-    socket.on("in room", async () => { // check 有沒有在房間內
+    socket.on("in room", async () => {
         try {
             const user = socket.info; // token中應該已帶有roomID資訊
             const { roomID } = user;

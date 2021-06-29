@@ -104,7 +104,7 @@ function setVideoChat (socket) {
     }
 
     function handleRemoteStream (event) {
-        const remoteVideo = document.getElementById("remoteVideo"); // 有問題
+        const remoteVideo = document.getElementById("remoteVideo");
         if (remoteVideo.srcObject !== event.streams[0]) {
             remoteVideo.srcObject = event.streams[0];
         }

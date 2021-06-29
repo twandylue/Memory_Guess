@@ -1,6 +1,6 @@
 function showBreakTimeInfo (nextRound) {
     const middle = document.querySelector("#middle");
-    while (middle.firstChild) { // 移除middle下 每個項目
+    while (middle.firstChild) {
         middle.removeChild(middle.lastChild);
     };
     middle.className = "middle-breakTime";
