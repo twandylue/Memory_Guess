@@ -12,7 +12,7 @@ Website URL: https://andyforfun.site
 * [Structure](#Structure)
 * [Database Schema](#Database-Schema)
 * [Features](#Features)
-* [Demo Account](#Demo-Account)
+* [Demo Accounts](#Demo-Accounts)
 * [Contact](#Contact)
 
 ## Technologies
@@ -52,7 +52,8 @@ Website URL: https://andyforfun.site
 ### 3rd Party APIs
 * WebRTC
 
-## Structure (Multiple-server)
+## Structure
+### Multiple-server
 ![Structur](https://user-images.githubusercontent.com/70478084/123537000-f360bb80-d75f-11eb-947e-1221790f18be.jpeg)
 
 ### Load balancing sockets on horizontally scaling WebSocket servers
@@ -68,7 +69,7 @@ Redis adaptor in socket.io-redis library can help bind servers in the same cache
 # After implementing Redis adaptor
 ![after_c](https://user-images.githubusercontent.com/70478084/123686923-e5f02200-d882-11eb-87c7-3d2ba589c010.png)
 
-## Structure (Single-server)
+### Single-server
 ![Structure](https://user-images.githubusercontent.com/70478084/123537049-30c54900-d760-11eb-9636-6d1c323f2f4a.jpeg)
 
 ## Database Schema
