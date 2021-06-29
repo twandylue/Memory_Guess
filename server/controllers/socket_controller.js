@@ -409,7 +409,7 @@ const clickCardInGame = function (socket, io) {
             } else {
                 client.set(user.email, JSON.stringify({ cardID: cardID, number: number, gameID: gameID, clickTime: utsOrder })); // gameID for cache init after each round over
             }
-            await Game.recordEveryStep(stepInfo); // 可否改為遊戲結束後一次insert? 待改
+            await Game.recordEveryStep(stepInfo);
         } catch (err) {
             console.log(`error in click card ${err}`);
             socket.emit("join failed", { err: "join failed" });
@@ -421,7 +421,7 @@ const clickCardInGame = function (socket, io) {
         const user = socket.info;
         const room = user.roomID;
         const oppoInfo = { source: source, cardID: cardID };
-        socket.to(room).emit("opposite click card", oppoInfo); // 對其他人 此處效能待改 送出卡片和數字分離了 如是用cache 就沒啥差 因為cache很快
+        socket.to(room).emit("opposite click card", oppoInfo);
 
         const number = await getCardNumberInCache(gameID, info.round, info.cardID); // use cache
         const cardFilledInfo = { cardID: cardID, number: number };
@@ -474,7 +474,7 @@ const clickCardInGame = function (socket, io) {
         } else {
             client.set(user.email, JSON.stringify({ cardIDs: [cardID], number: [number], gameID: gameID, clickTime: utsOrder })); // gameID for cache init after each round over
         }
-        await Game.recordEveryStep(stepInfo); // 可否改為遊戲結束後一次insert? 待改
+        await Game.recordEveryStep(stepInfo);
     });
 };
 
