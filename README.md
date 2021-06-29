@@ -9,7 +9,7 @@ Website URL: https://andyforfun.site
 
 ## Table of Contents
 * [Technologies](#Technologies)
-* [Architecture](#Architecture)
+* [Structure](#Structure)
 * [Database Schema](#Database-Schema)
 * [Features](#Features)
 * [Demo Account](#Demo-Account)
