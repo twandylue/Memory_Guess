@@ -55,12 +55,12 @@ Website URL: https://andyforfun.site
 ### Multiple-server
 ![Structur](https://user-images.githubusercontent.com/70478084/123537000-f360bb80-d75f-11eb-947e-1221790f18be.jpeg)
 
-### Load balancing sockets on horizontally scaling WebSocket servers
-* Set up load balancer to allocate WebSocket servers to clients.
+### Load balancing sockets on horizontally scaling socket.io servers
+* Set up load balancer to allocate socket.io servers to clients.
 * Use sticky sessions to make sure clients connect to constant servers every time through socket.io.
 * Implement horizontal auto scaling group to increase new severs when older servers reach capacity limits.
-* Connect clients in different WebSocket servers by socket.io-redis and AWS ElastiCache (Redis), so they can interact with others through socket.io.  
-Redis adaptor in socket.io-redis library can help bind servers in the same cache, so WebSocket servers are able to emit identical events and data synchronously through socket.io to thier clients. And it makes clients in different servers be able to communicate and interact with others in real time.   
+* Connect clients in different socket.io servers by socket.io-redis and AWS ElastiCache (Redis), so they can interact with others through socket.io.  
+Redis adaptor in socket.io-redis library can help bind servers in the same cache, so socket.io servers are able to emit identical events and data synchronously through socket.io to thier clients. And it makes clients in different servers be able to communicate and interact with others in real time.   
 
 # Before implementing Redis adaptor
 ![before_c](https://user-images.githubusercontent.com/70478084/123686680-a0335980-d882-11eb-89ec-1903b73abc71.png)
