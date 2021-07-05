@@ -84,8 +84,6 @@ const getMultiPairs = (target) => { // target > 1 and is a positive interger
             temp.push(curArr[i]);
 
             if (nextArr) {
-                // console.log(nextArr);
-                // console.log(temp);
                 combination(nextArr, temp);
             } else {
                 results.push(temp);

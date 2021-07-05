@@ -29,7 +29,8 @@ app.use("/api/" + API_VERSION,
     [
         require("./server/routes/user_route"),
         require("./server/routes/replay_route"),
-        require("./server/routes/lobby_route")
+        require("./server/routes/lobby_route"),
+        require("./server/routes/load_test_route")
     ]
 );
 
