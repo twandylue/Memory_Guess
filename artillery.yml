@@ -1,13 +1,13 @@
 config:
   # target: "https://andyforfun.site"
-  target: "http://localhost:3000"
-  # target: "http://35.73.76.64"
+  # target: "http://localhost:3000"
+  target: "http://35.75.161.246"
 
   https:
     pool: 20
   phases:
     - duration: 20
-      arrivalRate: 20
+      arrivalRate: 68
 scenarios:
   - flow:
     - get:
