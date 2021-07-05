@@ -46,7 +46,7 @@ const genMultiCardsNumber = (target, totalCards) => {
 const getFactors = (number) => {
     const factors = [];
     let i = 2;
-    while (number > 1) {
+    while (number > 1) { // O(n)
         if (number % i === 0) {
             factors.push(i);
             number = number / i;
@@ -73,7 +73,7 @@ const getMultiPairs = (target) => { // target > 1 and is a positive interger
     }
 
     const results = [];
-    function combination (curArr, combi) {
+    function combination (curArr, combi) { //
         const nextArr = arr.shift();
 
         for (let i = 0; i < curArr.length; i++) {
@@ -84,9 +84,12 @@ const getMultiPairs = (target) => { // target > 1 and is a positive interger
             temp.push(curArr[i]);
 
             if (nextArr) {
+                // console.log(nextArr);
+                // console.log(temp);
                 combination(nextArr, temp);
             } else {
                 results.push(temp);
+                console.log(results);
             }
         }
         if (nextArr) {

@@ -1,0 +1,19 @@
+config:
+  # target: "https://andyforfun.site"
+  # target: "http://loadbalancer-appworks-24606649.ap-northeast-1.elb.amazonaws.com"
+  # target: "http://localhost:3000"
+  # target: "http://35.73.76.64"
+  # target: "http://test123loadbalancer-494431726.ap-northeast-1.elb.amazonaws.com"
+  target: "http://newTestLoadBalancer-1401613381.ap-northeast-1.elb.amazonaws.com"
+  # target: "http://35.74.64.9" 
+  # target: "http://35.72.181.35" 
+
+  https:
+    pool: 20
+  phases:
+    - duration: 1200
+      arrivalRate: 20
+scenarios:
+  - flow:
+    - get:
+        url: "/api/1.0/order/payments"

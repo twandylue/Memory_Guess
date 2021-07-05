@@ -235,10 +235,10 @@ const gameLoopWithRobot = async function (gameID, rules, roomID, members, diffcu
         const target = rules.targets[i];
         rules.state = "in ready";
         const cardsSetting = genMultiCardsNumber(target, rules.number); // 搭配cache使用 先存後取
-        Game.saveCardsSetting(gameID, roomID, cardsSetting, round); // 一回合存一次 如果有cache 不用await 因為遊戲中不需要用到DB資料
+        Game.saveCardsSetting(gameID, roomID, cardsSetting, round); // 一回合存一次 如果有cache 不用await 因為遊戲中不需要用到DB資料 for recap
         const cardSettingInCache = {}; // 一份存cache
         cardSettingInCache[round] = cardsSetting;
-        client.set(gameID, JSON.stringify(cardSettingInCache)); // 儲存卡片編號和對應數字
+        client.set(gameID, JSON.stringify(cardSettingInCache)); // 儲存卡片編號和對應數字 for game
 
         const info = {
             round: round,
