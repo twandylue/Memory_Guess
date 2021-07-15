@@ -71,9 +71,18 @@ Redis adaptor in socket.io-redis library can help bind servers in the same cache
 ### Single-server
 ![Structure](https://user-images.githubusercontent.com/70478084/123537049-30c54900-d760-11eb-9636-6d1c323f2f4a.jpeg)
 
+## Socket flowchart
+### In game lobby
+![game_process 001](https://user-images.githubusercontent.com/70478084/125712534-4ec3488e-e575-4778-a76d-84f02238f66f.jpeg)
+
+### In the game room
+![game_process 002](https://user-images.githubusercontent.com/70478084/125712542-1b98a5af-795c-4430-82cf-c03ac330363c.jpeg)
+
+### In the game
+![game_process 003](https://user-images.githubusercontent.com/70478084/125712553-5f5b4e10-a468-4a12-8492-6871263c4c05.jpeg)
+
 ## Database Schema
 ![Database_Schema](https://user-images.githubusercontent.com/70478084/123537080-4cc8ea80-d760-11eb-8b46-0813e8ca6de6.png)
-
 
 ## Features
 ### Start games with other players in battle game mode
