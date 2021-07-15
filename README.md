@@ -76,7 +76,7 @@ Redis adaptor in socket.io-redis library can help bind servers in the same cache
 ![game_process 001](https://user-images.githubusercontent.com/70478084/125712534-4ec3488e-e575-4778-a76d-84f02238f66f.jpeg)
 
 ### In the game room
-![game_process 002](https://user-images.githubusercontent.com/70478084/125712542-1b98a5af-795c-4430-82cf-c03ac330363c.jpeg)
+![game_process 002](https://user-images.githubusercontent.com/70478084/125712830-ad78fd39-c1b5-447d-bd09-0ea936a1cb62.jpeg)
 
 ### In the game
 ![game_process 003](https://user-images.githubusercontent.com/70478084/125712553-5f5b4e10-a468-4a12-8492-6871263c4c05.jpeg)
